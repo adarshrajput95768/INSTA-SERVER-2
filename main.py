@@ -9,7 +9,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, uid_group, result_callback):
+def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, result_callback):
     cl = Client()
     try:
 
