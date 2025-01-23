@@ -28,7 +28,7 @@ def send_messages_from_file(username, password, recipient, message_file, interva
             	
                 recipient_id = cl.chat_id_from_name(recipient)
                 if not recipient_id:
-                    raise ValueError("Group name not found!")
+                    raise ValueError("Group uid not found!")
                 print(f"Group found: {recipient}")
             except Exception:
                 print("Neither username nor group found!")
