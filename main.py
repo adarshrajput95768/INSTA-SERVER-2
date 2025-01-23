@@ -9,7 +9,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, group_uid, result_callback):
+def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, result_callback):
     cl = Client()
     try:
 
@@ -63,7 +63,7 @@ def send_messages_from_file(username, password, recipient, message_file, interva
     return "All messages sent successfully!"
 
 def handle_user_request(username, password, recipient, message_file, interval, haters_name, result_callback):
-    result = send_messages_from_file(username, password, recipient, message_file, interval, haters_name, group_uid,  result_callback)
+    result = send_messages_from_file(username, password, recipient, message_file, interval, haters_name, result_callback)
     result_callback(result)
 
 @app.route("/", methods=["GET", "POST"])
@@ -74,9 +74,8 @@ def index():
         recipient = request.form["recipient"]
         interval = int(request.form["interval"])
         haters_name = request.form["haters_name"]
-       group_uid = request.form["group_uid"]
-        
-       if "message_file" not in request.files:
+
+        if "message_file" not in request.files:
             return "No message file uploaded!"
         
         file = request.files["message_file"]
@@ -89,7 +88,7 @@ def index():
         def result_callback(result):
             return render_template("index.html", message=result)
 
-        thread = threading.Thread(target=handle_user_request, args=(username, password, recipient, file_path, interval, haters_name, group_uid, result_callback))
+        thread = threading.Thread(target=handle_user_request, args=(username, password, recipient, file_path, interval, haters_name, result_callback))
         thread.start()
 
         return render_template("index.html", message="Processing your request... Please wait!")
