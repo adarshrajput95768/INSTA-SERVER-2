@@ -9,7 +9,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, result_callback):
+def send_messages_from_file(username, password, recipient, message_file, interval, haters_name, uid_group, result_callback):
     cl = Client()
     try:
 
@@ -28,7 +28,7 @@ def send_messages_from_file(username, password, recipient, message_file, interva
             	
                 recipient_id = cl.chat_id_from_name(recipient)
                 if not recipient_id:
-                    raise ValueError("Group uid not found!")
+                    raise ValueError("Group name not found!")
                 print(f"Group found: {recipient}")
             except Exception:
                 print("Neither username nor group found!")
